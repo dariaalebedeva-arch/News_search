@@ -4,13 +4,140 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Генератор НОВОСТЕЙ</title>
+  <style>
+    :root {
+      --bg-1: #0f172a;
+      --bg-2: #1e293b;
+      --card-bg: rgba(255, 255, 255, 0.08);
+      --text: #e2e8f0;
+      --accent: #38bdf8;
+      --accent-2: #a78bfa;
+      --border: rgba(255, 255, 255, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      color: var(--text);
+      background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
+      overflow: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -20%;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.25), transparent 35%),
+        radial-gradient(circle at 80% 70%, rgba(167, 139, 250, 0.25), transparent 40%);
+      filter: blur(8px);
+      animation: moveGlow 12s ease-in-out infinite alternate;
+      z-index: -1;
+    }
+
+    .card {
+      width: min(760px, 92vw);
+      padding: 34px 30px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--card-bg);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      animation: cardEnter 900ms ease-out both;
+    }
+
+    h1 {
+      margin: 0 0 22px;
+      font-size: clamp(1.8rem, 2.6vw, 2.8rem);
+      letter-spacing: 0.5px;
+      line-height: 1.15;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: titlePulse 4s ease-in-out infinite;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    li {
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(15, 23, 42, 0.45);
+      transform: translateY(18px);
+      opacity: 0;
+      animation: itemReveal 700ms ease forwards;
+      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+    }
+
+    li::before {
+      content: "•";
+      color: var(--accent);
+      margin-right: 10px;
+      font-size: 1.1rem;
+    }
+
+    li:nth-child(1) { animation-delay: 220ms; }
+    li:nth-child(2) { animation-delay: 380ms; }
+    li:nth-child(3) { animation-delay: 540ms; }
+
+    li:hover {
+      transform: translateY(-2px) scale(1.01);
+      border-color: rgba(56, 189, 248, 0.7);
+      background: rgba(30, 41, 59, 0.8);
+    }
+
+    @keyframes cardEnter {
+      from {
+        opacity: 0;
+        transform: translateY(28px) scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes itemReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes moveGlow {
+      from { transform: translate(-2%, -1%) scale(1); }
+      to { transform: translate(2%, 1%) scale(1.05); }
+    }
+
+    @keyframes titlePulse {
+      0%, 100% { filter: drop-shadow(0 0 0 rgba(56, 189, 248, 0)); }
+      50% { filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.45)); }
+    }
+  </style>
 </head>
 <body>
-  <h1>Генератор НОВОСТЕЙ</h1>
-  <ul>
-    <li>10 главных новостей в сфере ИИ</li>
-    <li>10 главных новостей в сфере недвижимости</li>
-    <li>10 популярных запросов при поиске мебели</li>
-  </ul>
+  <main class="card">
+    <h1>Генератор НОВОСТЕЙ</h1>
+    <ul>
+      <li>10 главных новостей в сфере ИИ</li>
+      <li>10 главных новостей в сфере недвижимости</li>
+      <li>10 популярных запросов при поиске мебели</li>
+    </ul>
+  </main>
 </body>
 </html>
